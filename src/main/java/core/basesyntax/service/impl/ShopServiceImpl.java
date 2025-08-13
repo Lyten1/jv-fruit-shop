@@ -1,17 +1,19 @@
-package core.basesyntax.services.shop;
+package core.basesyntax.service.impl;
 
-import core.basesyntax.services.FruitTransaction;
-import core.basesyntax.services.OperationStrategy;
-import core.basesyntax.services.operations.OperationHandler;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.strategy.OperationStrategy;
+import core.basesyntax.db.Storage;
+import core.basesyntax.service.ShopService;
+import core.basesyntax.strategy.OperationHandler;
 import java.util.List;
 
 public class ShopServiceImpl implements ShopService {
     private OperationStrategy operationStrategy;
     private Storage storage;
 
-    public ShopServiceImpl(OperationStrategy operationStrategy, Storage storage) {
+    public ShopServiceImpl(OperationStrategy operationStrategy) {
         this.operationStrategy = operationStrategy;
-        this.storage = storage;
+        this.storage = new Storage();
     }
 
     @Override

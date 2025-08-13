@@ -1,34 +1,41 @@
 package core.basesyntax;
 
-import core.basesyntax.services.DataConverter;
-import core.basesyntax.services.DataConverterImpl;
-import core.basesyntax.services.FruitTransaction;
-import core.basesyntax.services.OperationStrategy;
-import core.basesyntax.services.OperationStrategyImpl;
-import core.basesyntax.services.ReportGenerator;
-import core.basesyntax.services.ReportGeneratorImpl;
-import core.basesyntax.services.files.FileReader;
-import core.basesyntax.services.files.FileReaderImpl;
-import core.basesyntax.services.files.FileWriter;
-import core.basesyntax.services.files.FileWriterImpl;
-import core.basesyntax.services.operations.BalanceOperation;
-import core.basesyntax.services.operations.OperationHandler;
-import core.basesyntax.services.operations.PurchaseOperation;
-import core.basesyntax.services.operations.ReturnOperation;
-import core.basesyntax.services.operations.SupplyOperation;
-import core.basesyntax.services.shop.ShopService;
-import core.basesyntax.services.shop.ShopServiceImpl;
-import core.basesyntax.services.shop.Storage;
+import core.basesyntax.service.DataConverter;
+import core.basesyntax.service.impl.DataConverterImpl;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.strategy.OperationStrategy;
+import core.basesyntax.strategy.OperationStrategyImpl;
+import core.basesyntax.service.ReportGenerator;
+import core.basesyntax.service.impl.ReportGeneratorImpl;
+import core.basesyntax.files.FileReader;
+import core.basesyntax.files.FileReaderImpl;
+import core.basesyntax.files.FileWriter;
+import core.basesyntax.files.FileWriterImpl;
+import core.basesyntax.strategy.BalanceOperation;
+import core.basesyntax.strategy.OperationHandler;
+import core.basesyntax.strategy.PurchaseOperation;
+import core.basesyntax.strategy.ReturnOperation;
+import core.basesyntax.strategy.SupplyOperation;
+import core.basesyntax.service.ShopService;
+import core.basesyntax.service.impl.ShopServiceImpl;
+import core.basesyntax.db.Storage;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
+
+    public static final String RECOURCES_FOLDER = "src/main/resources/";
+    public static final String IN_FILE = RECOURCES_FOLDER + "reportToRead.csv";
+    public static final String OUT_FILE = RECOURCES_FOLDER + "finalReport.csv";
+
+
     public static void main(String[] arg) {
 
         // 1. Read the data from the input CSV file
         FileReader fileReader = new FileReaderImpl();
-        List<String> inputReport = fileReader.read("reportToRead.csv");
+        List<String> inputReport = fileReader.read(IN_FILE);
 
         // 3. Create and feel the map with all OperationHandler implementations
         Map<FruitTransaction.Operation, OperationHandler> operationHandlers = new HashMap<>();
@@ -44,7 +51,7 @@ public class Main {
 
         // 4. Process the incoming transactions with applicable OperationHandler implementations
         Storage storage = new Storage();
-        ShopService shopService = new ShopServiceImpl(operationStrategy, storage);
+        ShopService shopService = new ShopServiceImpl(operationStrategy);
         shopService.process(transactions);
 
         // 5.Generate report based on the current Storage state
@@ -53,6 +60,6 @@ public class Main {
 
         // 6. Write the received report into the destination file
         FileWriter fileWriter = new FileWriterImpl();
-        fileWriter.write(resultingReport, "finalReport.csv");
+        fileWriter.write(resultingReport, OUT_FILE);
     }
 }

@@ -1,4 +1,4 @@
-package core.basesyntax.services.files;
+package core.basesyntax.files;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,9 +10,7 @@ public class FileWriterImpl implements FileWriter {
     @Override
     public void write(String text, String fileName) {
         try {
-            Files.write(Path.of(fileName), text.getBytes(),
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Path.of(fileName), text.getBytes());
         } catch (IOException e) {
             throw new RuntimeException("Can't write to file: " + fileName, e);
         }

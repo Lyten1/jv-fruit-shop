@@ -9,11 +9,9 @@ import java.util.List;
 
 public class ShopServiceImpl implements ShopService {
     private OperationStrategy operationStrategy;
-    private Storage storage;
 
     public ShopServiceImpl(OperationStrategy operationStrategy) {
         this.operationStrategy = operationStrategy;
-        this.storage = new Storage();
     }
 
     @Override
@@ -21,7 +19,7 @@ public class ShopServiceImpl implements ShopService {
         for (FruitTransaction transaction : transactions) {
             OperationHandler currentOperation = operationStrategy.get(transaction.getOperation());
             int stock = currentOperation.getStock(transaction.getQuantity());
-            storage.updateStorage(transaction.getFruit(), stock);
+            Storage.updateStorage(transaction.getFruit(), stock);
         }
     }
 }

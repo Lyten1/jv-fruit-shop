@@ -7,6 +7,9 @@ import java.util.List;
 public class DataConverterImpl implements DataConverter {
     @Override
     public List<FruitTransaction> convertToTransaction(List<String> listOfReport) {
+        if (listOfReport == null) {
+            throw new IllegalArgumentException("list of input data must not be null");
+        }
         return listOfReport.stream()
                 .skip(1)
                 .map(this::getFruitTransaction)
@@ -22,7 +25,11 @@ public class DataConverterImpl implements DataConverter {
         }
         fruitTransaction.setOperation(FruitTransaction.Operation.fromCode(data[0]));
         fruitTransaction.setFruit(data[1]);
-        fruitTransaction.setQuantity(Integer.parseInt(data[2]));
+        int quantity;
+        if ((quantity = Integer.parseInt(data[2])) < 0) {
+            throw new RuntimeException("Negative quantity not allowed: " + record);
+        }
+        fruitTransaction.setQuantity(quantity);
         return fruitTransaction;
     }
 }

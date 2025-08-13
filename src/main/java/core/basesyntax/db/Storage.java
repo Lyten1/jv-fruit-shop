@@ -10,7 +10,7 @@ public class Storage {
         return shopStorage;
     }
 
-    public void updateStorage(String fruit, int amount) {
+    public static void updateStorage(String fruit, int amount) {
         if (shopStorage.containsKey(fruit)) {
             if (shopStorage.get(fruit) + amount < 0) {
                 throw new RuntimeException("Balance of " + fruit + " is negative");

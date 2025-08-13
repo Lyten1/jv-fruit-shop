@@ -1,8 +1,7 @@
 package core.basesyntax.service.impl;
 
-import core.basesyntax.service.DataConverter;
 import core.basesyntax.model.FruitTransaction;
-
+import core.basesyntax.service.DataConverter;
 import java.util.List;
 
 public class DataConverterImpl implements DataConverter {
@@ -18,7 +17,8 @@ public class DataConverterImpl implements DataConverter {
         FruitTransaction fruitTransaction = new FruitTransaction();
         String[] data = record.split(",");
         if (data.length != 3) {
-            throw new RuntimeException("Input file data in wrong format, every row must have 3 parameters");
+            throw new RuntimeException(
+                    "Input file data in wrong format, every row must have 3 parameters");
         }
         fruitTransaction.setOperation(FruitTransaction.Operation.fromCode(data[0]));
         fruitTransaction.setFruit(data[1]);

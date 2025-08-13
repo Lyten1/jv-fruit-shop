@@ -2,11 +2,8 @@ package core.basesyntax.service.impl;
 
 import core.basesyntax.db.Storage;
 import core.basesyntax.service.ReportGenerator;
-
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ReportGeneratorImpl implements ReportGenerator {
     @Override

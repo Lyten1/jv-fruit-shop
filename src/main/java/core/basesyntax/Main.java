@@ -1,25 +1,24 @@
 package core.basesyntax;
 
-import core.basesyntax.service.DataConverter;
-import core.basesyntax.service.impl.DataConverterImpl;
-import core.basesyntax.model.FruitTransaction;
-import core.basesyntax.strategy.OperationStrategy;
-import core.basesyntax.strategy.OperationStrategyImpl;
-import core.basesyntax.service.ReportGenerator;
-import core.basesyntax.service.impl.ReportGeneratorImpl;
+import core.basesyntax.db.Storage;
 import core.basesyntax.files.FileReader;
 import core.basesyntax.files.FileReaderImpl;
 import core.basesyntax.files.FileWriter;
 import core.basesyntax.files.FileWriterImpl;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.service.DataConverter;
+import core.basesyntax.service.ReportGenerator;
+import core.basesyntax.service.ShopService;
+import core.basesyntax.service.impl.DataConverterImpl;
+import core.basesyntax.service.impl.ReportGeneratorImpl;
+import core.basesyntax.service.impl.ShopServiceImpl;
 import core.basesyntax.strategy.BalanceOperation;
 import core.basesyntax.strategy.OperationHandler;
+import core.basesyntax.strategy.OperationStrategy;
+import core.basesyntax.strategy.OperationStrategyImpl;
 import core.basesyntax.strategy.PurchaseOperation;
 import core.basesyntax.strategy.ReturnOperation;
 import core.basesyntax.strategy.SupplyOperation;
-import core.basesyntax.service.ShopService;
-import core.basesyntax.service.impl.ShopServiceImpl;
-import core.basesyntax.db.Storage;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,6 @@ public class Main {
     public static final String RECOURCES_FOLDER = "src/main/resources/";
     public static final String IN_FILE = RECOURCES_FOLDER + "reportToRead.csv";
     public static final String OUT_FILE = RECOURCES_FOLDER + "finalReport.csv";
-
 
     public static void main(String[] arg) {
 
@@ -56,7 +54,7 @@ public class Main {
 
         // 5.Generate report based on the current Storage state
         ReportGenerator reportGenerator = new ReportGeneratorImpl();
-        String resultingReport = reportGenerator.getReport(storage);
+        String resultingReport = reportGenerator.getReport();
 
         // 6. Write the received report into the destination file
         FileWriter fileWriter = new FileWriterImpl();

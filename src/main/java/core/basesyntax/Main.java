@@ -1,6 +1,5 @@
 package core.basesyntax;
 
-import core.basesyntax.db.Storage;
 import core.basesyntax.files.FileReader;
 import core.basesyntax.files.FileReaderImpl;
 import core.basesyntax.files.FileWriter;

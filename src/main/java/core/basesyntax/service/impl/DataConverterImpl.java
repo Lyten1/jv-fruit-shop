@@ -6,8 +6,8 @@ import java.util.List;
 
 public class DataConverterImpl implements DataConverter {
 
-    private final String SEPARATOR = ",";
-    private final int COUNT_OF_PARAMETERS = 3;
+    private static final String SEPARATOR = ",";
+    private static final int COUNT_OF_PARAMETERS = 3;
 
     @Override
     public List<FruitTransaction> convertToTransaction(List<String> listOfReport) {

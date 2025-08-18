@@ -5,6 +5,10 @@ import core.basesyntax.service.DataConverter;
 import java.util.List;
 
 public class DataConverterImpl implements DataConverter {
+
+    private final String SEPARATOR = ",";
+    private final int COUNT_OF_PARAMETERS = 3;
+
     @Override
     public List<FruitTransaction> convertToTransaction(List<String> listOfReport) {
         if (listOfReport == null) {
@@ -18,8 +22,8 @@ public class DataConverterImpl implements DataConverter {
 
     private FruitTransaction getFruitTransaction(String record) {
         FruitTransaction fruitTransaction = new FruitTransaction();
-        String[] data = record.split(",");
-        if (data.length != 3) {
+        String[] data = record.split(SEPARATOR);
+        if (data.length != COUNT_OF_PARAMETERS) {
             throw new RuntimeException(
                     "Input file data in wrong format, every row must have 3 parameters");
         }
